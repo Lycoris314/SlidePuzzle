@@ -1,3 +1,6 @@
+const FIELD_WIDTH=600;
+const FIELD_HEIGHT=600;
+
 $(() => {
 
     //起動時
@@ -28,8 +31,8 @@ $(() => {
             add_panel_event(panel);
         }
 
-        $(".field>div").css("width", 600 / width)
-            .css("height", 600 / height);
+        $(".field>div").css("width", FIELD_WIDTH / width)
+            .css("height", FIELD_HEIGHT / height);
 
     });
 
@@ -58,8 +61,8 @@ $(() => {
             add_panel_event(panel);
         }
 
-        $(".field>div").css("width", 600 / width)
-            .css("height", 600 / height);
+        $(".field>div").css("width", FIELD_WIDTH / width)
+            .css("height", FIELD_HEIGHT / height);
 
         $(".side").removeClass("show");
         $(".gray_cover").removeClass("on");
