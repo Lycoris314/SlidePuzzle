@@ -10,8 +10,6 @@ class Panel {
 
         if (this.#isEmpty) {
             this.#panelElem.addClass("empty")
-        } else {
-            this.#panelElem.addClass("no_empty")
         }
 
         this.#panelElem
@@ -47,10 +45,9 @@ class Panel {
     }
 
     isCorrect() {
-        // return this.#panelElem.attr("data-now-x") == this.#panelElem.attr("data-correct-x") &&
-        //     this.#panelElem.attr("data-now-y") == this.#panelElem.attr("data-correct-y")
-        return this.getNowX()==this.getCorrectX() &&
-               this.getNowY()==this.getCorrectY() ;
+
+        return this.getNowX() == this.getCorrectX() &&
+            this.getNowY() == this.getCorrectY();
     }
 
     updatePosition(y, x) {
@@ -58,12 +55,12 @@ class Panel {
         this.#panelElem.attr("data-now-x", x);
     }
 
-    // visible() {
-    //     $(".empty").addClass("visible");
-    // }
+    visible() {
+        this.#panelElem.addClass("visible");
+    }
 
     // reset() {
-    //     $(".empty").removeClass("visible");
+    //     this.#panelElem.removeClass("visible");
     // }
 
 
