@@ -2,29 +2,31 @@ class PanelManager {
     #panels;
     #maxWidth;
     #maxHeight;
-    #empty_panel;
+    #emptyPanel;
 
     constructor(maxWidth, maxHeight) {
-        console.log("manager-start");
 
         this.#maxWidth = maxWidth;
         this.#maxHeight = maxHeight;
 
         //二次元配列を用意
-        this.#panels = Array(maxWidth);
+        this.#panels = [];
         for (let i = 1; i <= maxWidth; i++) {
-            this.#panels[i] = new Array();
+            this.#panels[i] = [];
         }
 
-        for (let i = 1; i <= this.#maxWidth; i++) {
-            for (let j = 1; j <= this.#maxHeight; j++) {
 
-                let n = i + this.#maxWidth * (j - 1);
+        for (let i = 1; i <= maxWidth; i++) {
+            for (let j = 1; j <= maxHeight; j++) {
 
-                this.#panels[i][j] = new Panel(i, j, n, this.#maxWidth, this.#maxHeight);
+                let n = i + maxWidth * (j - 1);
+
+                this.#panels[i][j] = new Panel(i, j, n, maxWidth, maxHeight);
             }
         }
-        this.#empty_panel=this.#panels[maxWidth][maxHeight];
+        this.#emptyPanel = this.#panels[maxWidth][maxHeight];
+
+        //console.log(this.#panels[0]);
     }
 
     getViewPanels() {
@@ -37,12 +39,13 @@ class PanelManager {
                 arr.push(this.#panels[i][j].getPanel())
             }
         }
+
         return arr;
     }
 
 
 
-    random_exchange() {
+    randomExchange() {
         //0,1,...,n-1をランダムに
         function random(n) {
             return Math.floor(Math.random() * n)
@@ -70,35 +73,32 @@ class PanelManager {
 
     shufflePanels() {
         for (let i = 0; i < 100; i++) {
-            this.random_exchange();
+            this.randomExchange();
         }
     }
 
 
     movePanel(y, x) {
 
-        let emp_y = this.#empty_panel.getNowY();
-        let emp_x = this.#empty_panel.getNowX();
+        let empY = this.#emptyPanel.getNowY();
+        let empX = this.#emptyPanel.getNowX();
 
         //if内は隣接条件を表現
-        if (Math.abs(y - emp_y) + Math.abs(x - emp_x) == 1) {
+        if (Math.abs(y - empY) + Math.abs(x - empX) == 1) {
 
-            [this.#panels[y][x], this.#panels[emp_y][emp_x]] =
-                [this.#panels[emp_y][emp_x], this.#panels[y][x]]
+            [this.#panels[y][x], this.#panels[empY][empX]] =
+                [this.#panels[empY][empX], this.#panels[y][x]]
 
             this.#panels[y][x].updatePosition(y, x);
-            this.#panels[emp_y][emp_x].updatePosition(emp_y, emp_x);
+            this.#panels[empY][empX].updatePosition(empY, empX);
 
             //クリア判定
-            let allCorrect = true;
-            for (let i = 1; i <= this.#maxWidth; i++) {
-                for (let j = 1; j <= this.#maxHeight; j++) {
-                    allCorrect = allCorrect && this.#panels[i][j].isCorrect()
-                }
+            const isGameClear = this.#panels.flat().every((x) => x.isCorrect());
+            if (isGameClear) {
+                this.#emptyPanel.visible();
             }
-            if (allCorrect) {
-                this.#empty_panel.visible();
-            }
+            //console.log(isGameClear);
+
         }
     }
 }

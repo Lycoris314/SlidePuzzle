@@ -47,6 +47,7 @@ main{
     display: flex;
     flex-wrap: wrap;
     width: 604px;
+    height:604px;
     border:2px solid black;
 }
 
