@@ -5,7 +5,7 @@ class Panel {
 
     constructor(y, x, num, maxWidth, maxHeight) {
 
-        this.#isEmpty = (y == maxWidth && x == maxHeight)
+        this.#isEmpty = (y == maxWidth-1 && x == maxHeight-1)
         this.#panelElem = $(`<div>${num}</div>`);
 
         if (this.#isEmpty) {
