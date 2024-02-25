@@ -1,81 +1,88 @@
 @charset "utf-8";
 
-*{
-    box-sizing: border-box;
-    margin:0;
-    padding:0;
+:root {
+    --field-width: 600px;
+    --field-height: 600px;
 }
 
-button{
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+button {
     background-color: blueviolet;
     border-radius: 10px;
-    border:none;
+    border: none;
     color: aliceblue;
     padding: 7px 10px;
     cursor: pointer;
-    margin:20px;
+    margin: 20px;
 }
 
-main{
+main {
     width: max-content;
-    margin:0 auto;
+    margin: 0 auto;
 }
 
-.gray_cover{
-    z-index:-1;
-    position:fixed;
+.gray_cover {
+    z-index: -1;
+    position: fixed;
     transition: 0.5s;
-    opacity:1;
+    opacity: 1;
     width: 100%;
-    height:100%;
+    height: 100%;
     background-color: transparent;
 }
 
-.gray_cover.on{
-    z-index:2;
-    opacity:0.5;
+.gray_cover.on {
+    z-index: 2;
+    opacity: 0.5;
     background-color: gray;
 }
 
-.p1{
+.p1 {
     font-weight: bold;
-    padding:20px 0;
+    padding: 20px 0;
     font-size: 1.2rem;
 }
 
-.field{
+.field {
     display: flex;
     flex-wrap: wrap;
-    width: 604px;
-    height:604px;
-    border:2px solid black;
+    width: calc(var(--field-width) + 4px);
+    height: calc(var(--field-height) + 4px);
+    border: 2px solid black;
 }
 
-.field >div{
-    width: 200px;
-    height:200px;
-    display:grid;
+.field>div {
+    width: calc(var(--field-width)/3);
+    height: calc(var(--field-height)/3);
+    background-size: var(--field-width) var(--field-height);
+    display: grid;
     place-items: center;
-    border:1px solid rgb(152, 152, 152);
+    border: 1px solid rgb(152, 152, 152);
     font-size: 2rem;
     background-color: rgb(151, 184, 247);
+    color: rgb(71, 71, 71);
 }
 
-.empty{
-    opacity:0;
+.empty {
+    opacity: 0;
 }
 
-.empty.visible{
-    opacity:1
+.empty.visible {
+    opacity: 1
 }
 
-main .p2{
+main .p2 {
     text-align: center;
 }
 
 
 
-.arrow{
+.arrow {
     background-color: blueviolet;
     width: 40px;
     height: 40px;
@@ -84,16 +91,16 @@ main .p2{
     cursor: pointer;
     position: fixed;
     z-index: 10;
-    bottom:5%;
-    right:10%;
-    transition:0.5s;
+    bottom: 5%;
+    right: 10%;
+    transition: 0.5s;
 }
 
-.arrow:hover{
+.arrow:hover {
     opacity: 0.8;
 }
 
-.arrow.lt::after{
+.arrow.lt::after {
     content: "<";
     display: block;
     color: white;
@@ -101,7 +108,7 @@ main .p2{
     translate: 10px 5px;
 }
 
-.arrow.gt::after{
+.arrow.gt::after {
     content: ">";
     display: block;
     color: white;
@@ -109,23 +116,41 @@ main .p2{
     translate: 12px 5px;
 }
 
-.side{
+
+/* サイドメニュー領域 */
+.side {
     padding-top: 30px;
     position: fixed;
     background-color: aliceblue;
     z-index: 5;
-    height:100%;
-    width:50%;
-    top:0;
-    right:-50%;
-    transition:1s;
+    height: 100%;
+    width: 50%;
+    top: 0;
+    right: -50%;
+    transition: 0.5s;
     box-shadow: -10px 0 10px 10px aliceblue;
 }
 
-.side.show{
-    right:0;
+.side.show {
+    right: 0;
 }
 
-p:has(button), p:has(input){
+p:has(button),
+p:has(input) {
     text-align: center;
+}
+
+.image_list {
+    display: flex;
+    flex-wrap: wrap;
+    height: 240px;
+    overflow-Y: scroll;
+}
+
+.flame {
+    padding: 10px;
+}
+
+.flame.on {
+    background-color: rgb(213, 122, 213);
 }

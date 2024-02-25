@@ -1,6 +1,42 @@
 
 $(() => {
 
+    $.ajax({
+        url: "imglist.php",
+        type: "get",
+        data: "exclude=default.jpg",
+        //dataType: "json",
+        cache: false,
+    }).done((data) => {
+
+        console.log("データ取得に成功しました。")
+
+        let imageList = JSON.parse(data);
+
+        for (let image of imageList.values()) {
+            let div = $("<div class=flame>");
+
+            div.append($("<img>").attr("src", "img/thumbnail/" + image))
+                .attr("data-imgPath", "img/" + image);
+
+            $(".image_list").append(div);
+        }
+
+        $(".flame").on("click", function () {
+            $(".flame").removeClass("on");
+            $(this).addClass("on");
+            $(".reset").attr("data-imgPath", $(this).attr("data-imgPath"));
+
+            $("<img>").attr("src", $(this).attr("data-imgPath")); //プリロード
+
+        })
+
+    }).fail(() => {
+        console.log("データ取得に失敗しました。")
+    })
+
+
+    //初期配置
     replacePanels();
 
     //シャッフルボタンを押す
@@ -36,8 +72,11 @@ $(() => {
 
         const width = $("#width").val();
         const height = $("#height").val();
+        const imgPath = $(".reset").attr("data-imgPath");
 
-        panemane = new PanelManager(width, height);
+        console.log("imgPath=" + imgPath);
+
+        panemane = new PanelManager(width, height, imgPath);
 
         if (shuffle == "shuffle") { panemane.shufflePanels(); }
 

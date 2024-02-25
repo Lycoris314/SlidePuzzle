@@ -3,12 +3,13 @@ class PanelManager {
     #maxWidth;
     #maxHeight;
     #emptyPanel;
-    #img ="url(img/default.jpg)";
+    #img;
 
-    constructor(maxWidth, maxHeight) {
+    constructor(maxWidth, maxHeight, img) {
 
         this.#maxWidth = maxWidth;
         this.#maxHeight = maxHeight;
+        this.#img = img
 
         //二次元配列を用意
         this.#panels = [];
@@ -24,16 +25,15 @@ class PanelManager {
 
                 this.#panels[i][j] = new Panel(i, j, n, maxWidth, maxHeight);
 
-                let left_posi =100* i/(maxWidth-1) +"% ";
-                let top_posi=100* j/(maxHeight-1) +"%";
+                let left_posi = 100 * i / (maxWidth - 1) + "% ";
+                let top_posi = 100 * j / (maxHeight - 1) + "%";
 
-                this.#panels[i][j].getPanel().css("background-image",this.#img)
-                .css("background-position",left_posi+top_posi)
+                this.#panels[i][j].getPanel().css("background-image", "url(" + this.#img + ")")
+                    .css("background-position", left_posi + top_posi)
             }
         }
-        this.#emptyPanel = this.#panels[maxWidth-1][maxHeight-1];
+        this.#emptyPanel = this.#panels[maxWidth - 1][maxHeight - 1];
 
-        //console.log(this.#panels[0]);
     }
 
     getViewPanels() {
@@ -46,7 +46,6 @@ class PanelManager {
                 arr.push(this.#panels[i][j].getPanel())
             }
         }
-
         return arr;
     }
 
@@ -63,13 +62,13 @@ class PanelManager {
 
         let y1, y2, x1, x2;
         do {
-            y1 = random(w) ;
-            y2 = (y1 + random(w - 1)+1) % w ;
-            x1 = random(h) ;
-            x2 = (x1 + random(h - 1)+1) % h ;
-            console.log(y1,y2,x1,x2);
+            y1 = random(w);
+            y2 = (y1 + random(w - 1) + 1) % w;
+            x1 = random(h);
+            x2 = (x1 + random(h - 1) + 1) % h;
+            //console.log(y1,y2,x1,x2);
         }
-        while ((y1 == w-1 && x1 == h-1) || (y2 == w-1 && x2 == h-1))
+        while ((y1 == w - 1 && x1 == h - 1) || (y2 == w - 1 && x2 == h - 1))
 
         [this.#panels[y1][x1], this.#panels[y2][x2]] =
             [this.#panels[y2][x2], this.#panels[y1][x1]];
@@ -104,7 +103,6 @@ class PanelManager {
             if (isGameClear) {
                 this.#emptyPanel.visible();
             }
-            console.log(isGameClear);
 
         }
     }
