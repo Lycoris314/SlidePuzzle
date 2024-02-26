@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-:root {
+html {
     --field-width: 600px;
     --field-height: 600px;
 }
@@ -57,8 +57,8 @@ main {
 }
 
 .field>div {
-    width: calc(var(--field-width)/3);
-    height: calc(var(--field-height)/3);
+    width: calc(100/3%);
+    height: calc(100/3%);
     background-size: var(--field-width) var(--field-height);
     display: grid;
     place-items: center;

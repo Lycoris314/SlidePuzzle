@@ -9,7 +9,8 @@ $(() => {
         cache: false,
     }).done((data) => {
 
-        console.log("データ取得に成功しました。")
+        console.log("データ取得に成功しました。");
+        //console.log(data);
 
         let imageList = JSON.parse(data);
 
@@ -23,17 +24,23 @@ $(() => {
         }
 
         $(".flame").on("click", function () {
+
             $(".flame").removeClass("on");
             $(this).addClass("on");
-            $(".reset").attr("data-imgPath", $(this).attr("data-imgPath"));
+
+            $(".reset").attr("data-imgPath", $(this).attr("data-imgPath"));//リセットして反映ボタンに反映する画像のパスを入れておく
 
             $("<img>").attr("src", $(this).attr("data-imgPath")); //プリロード
-
         })
 
     }).fail(() => {
         console.log("データ取得に失敗しました。")
     })
+
+
+    // これでパズル全体が小さくなる
+    // $("body").get(0).style.setProperty("--field-width", "300px");
+    // $("body").get(0).style.setProperty("--field-height","300px");
 
 
     //初期配置
@@ -74,8 +81,6 @@ $(() => {
         const height = $("#height").val();
         const imgPath = $(".reset").attr("data-imgPath");
 
-        console.log("imgPath=" + imgPath);
-
         panemane = new PanelManager(width, height, imgPath);
 
         if (shuffle == "shuffle") { panemane.shufflePanels(); }
@@ -96,9 +101,10 @@ $(() => {
 
         panel.on("click", function () {
 
+            //if内はまだ未クリアなら、という条件
             if (!$(".empty").hasClass("visible")) {
 
-                panemane.movePanel(panel.attr("data-now-y"), panel.attr("data-now-x"))
+                panemane.movePanel(panel.attr("data-now-y"), panel.attr("data-now-x"));
 
                 for (let panel of panemane.getViewPanels()) {
 
