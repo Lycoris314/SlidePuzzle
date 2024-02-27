@@ -3,13 +3,13 @@ class PanelManager {
     #maxWidth;
     #maxHeight;
     #emptyPanel;
-    #img;
+    //#img;
 
     constructor(maxWidth, maxHeight, img) {
 
         this.#maxWidth = maxWidth;
         this.#maxHeight = maxHeight;
-        this.#img = img
+        //this.#img = img
 
         //二次元配列を用意
         this.#panels = [];
@@ -23,13 +23,13 @@ class PanelManager {
 
                 let n = i + maxWidth * j + 1;
 
-                this.#panels[i][j] = new Panel(i, j, n, maxWidth, maxHeight);
+                this.#panels[i][j] = new Panel(i, j, n, maxWidth, maxHeight, img);
 
-                let left_posi = 100 * i / (maxWidth - 1) + "% ";
-                let top_posi = 100 * j / (maxHeight - 1) + "%";
+                // let left_posi = 100 * i / (maxWidth - 1) + "% ";
+                // let top_posi = 100 * j / (maxHeight - 1) + "%";
 
-                this.#panels[i][j].getPanel().css("background-image", "url(" + this.#img + ")")
-                    .css("background-position", left_posi + top_posi)
+                // this.#panels[i][j].getPanel().css("background-image", "url(" + img + ")")
+                //     .css("background-position", left_posi + top_posi);
             }
         }
         this.#emptyPanel = this.#panels[maxWidth - 1][maxHeight - 1];

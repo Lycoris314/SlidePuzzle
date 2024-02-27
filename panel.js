@@ -3,9 +3,9 @@ class Panel {
     #isEmpty;
     #panelElem;
 
-    constructor(y, x, num, maxWidth, maxHeight) {
+    constructor(y, x, num, maxWidth, maxHeight, img) {
 
-        this.#isEmpty = (y == maxWidth-1 && x == maxHeight-1)
+        this.#isEmpty = (y == maxWidth - 1 && x == maxHeight - 1)
         this.#panelElem = $(`<div>${num}</div>`);
 
         if (this.#isEmpty) {
@@ -17,6 +17,12 @@ class Panel {
             .attr("data-correct-x", x)
             .attr("data-now-y", y)
             .attr("data-now-x", x)
+
+        let left_posi = 100 * y / (maxWidth - 1) + "% ";
+        let top_posi = 100 * x / (maxHeight - 1) + "%";
+
+        this.#panelElem.css("background-image", "url(" + img + ")")
+            .css("background-position", left_posi + top_posi);
 
     }
 

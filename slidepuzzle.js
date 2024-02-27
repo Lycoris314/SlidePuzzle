@@ -28,7 +28,7 @@ $(() => {
             $(".flame").removeClass("on");
             $(this).addClass("on");
 
-            $(".reset").attr("data-imgPath", $(this).attr("data-imgPath"));//リセットして反映ボタンに反映する画像のパスを入れておく
+            $(".img-path").val($(this).attr("data-imgPath"))
 
             $("<img>").attr("src", $(this).attr("data-imgPath")); //プリロード
         })
@@ -79,7 +79,8 @@ $(() => {
 
         const width = $("#width").val();
         const height = $("#height").val();
-        const imgPath = $(".reset").attr("data-imgPath");
+        const imgPath = $(".img-path").val();
+
 
         panemane = new PanelManager(width, height, imgPath);
 
