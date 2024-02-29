@@ -15,7 +15,7 @@ $(() => {
         let imageList = JSON.parse(data);
 
         for (let image of imageList.values()) {
-            let div = $("<div class=flame>");
+            let div = $("<div class=frame>");
 
             div.append($("<img>").attr("src", "img/thumbnail/" + image))
                 .attr("data-imgPath", "img/" + image);
@@ -23,9 +23,9 @@ $(() => {
             $(".image_list").append(div);
         }
 
-        $(".flame").on("click", function () {
+        $(".frame").on("click", function () {
 
-            $(".flame").removeClass("on");
+            $(".frame").removeClass("on");
             $(this).addClass("on");
 
             $(".img-path").val($(this).attr("data-imgPath"))
@@ -37,19 +37,48 @@ $(() => {
         console.log("データ取得に失敗しました。")
     })
 
+    //起動時
+    let panemane = "";
+    createPanels();
+    addPanelEvent();
 
-    // これでパズル全体が小さくなる
-    // $("body").get(0).style.setProperty("--field-width", "300px");
-    // $("body").get(0).style.setProperty("--field-height","300px");
 
+    function createPanels(shuffle) {
 
-    //初期配置
-    replacePanels();
+        $(".field").empty();
+
+        const width = $("#width").val();
+        const height = $("#height").val();
+        const imgPath = $(".img-path").val();
+
+        panemane = new PanelManager(width, height, imgPath);
+
+        for (let panel of panemane.getViewPanels()) {
+
+            $(".field").append(panel);
+        }
+        if (shuffle == "shuffle") { panemane.shufflePanels(); }
+    }
+
+    function addPanelEvent() {
+
+        $(".panel").on("click", function () {
+
+            if (!$(".empty").hasClass("visible")) {
+
+                count += panemane.movePanel($(this).data("now-y"), $(this).data("now-x"));
+                $(".count").text(count);
+            }
+        })
+    }
 
     //シャッフルボタンを押す
     $(".shuffle").on("click", () => {
 
-        replacePanels("shuffle");
+        createPanels("shuffle");
+        addPanelEvent();
+        numbering();
+        resetCount();
     });
 
 
@@ -65,53 +94,49 @@ $(() => {
     $("form").on("submit", (e) => {
         e.preventDefault();
 
-        replacePanels();
+        createPanels();
+        addPanelEvent();
 
         $(".side").removeClass("show");
         $(".gray_cover").removeClass("on");
         $(".arrow").toggleClass("lt gt");
+
+        numbering();
+        resetCount();
+
     })
 
+    function numbering() {
+        if ($("#radio1").prop("checked")) {
+            $(".panel").removeClass("no-num white")
 
-    function replacePanels(shuffle = "") {
+        } else if ($("#radio2").prop("checked")) {
+            $(".panel").removeClass("no-num")
+                .addClass("white")
 
-        $(".field").empty();
-
-        const width = $("#width").val();
-        const height = $("#height").val();
-        const imgPath = $(".img-path").val();
-
-
-        panemane = new PanelManager(width, height, imgPath);
-
-        if (shuffle == "shuffle") { panemane.shufflePanels(); }
-
-        for (let panel of panemane.getViewPanels()) {
-
-            $(".field").append(panel);
-            addPanelEvent(panel);
+        } else if ($("#radio3").prop("checked")) {
+            $(".panel").removeClass("white")
+                .addClass("no-num")
         }
+    }
 
-        $(".field>div").css("width", `${100 / width}%`)
-            .css("height", `${100 / height}%`);
+    //カウント
+    let count = 0;
+    function resetCount() {
+        count = 0;
+        $(".count").text(0);
     }
 
 
-    //パネルをクリックすると発生するイベントを追加する関数
-    function addPanelEvent(panel) {
+    //テキスト選択禁止
+    document.onselectstart = () => false;
 
-        panel.on("click", function () {
 
-            //if内はまだ未クリアなら、という条件
-            if (!$(".empty").hasClass("visible")) {
 
-                panemane.movePanel(panel.attr("data-now-y"), panel.attr("data-now-x"));
 
-                for (let panel of panemane.getViewPanels()) {
 
-                    $(".field").append(panel);
-                }
-            }
-        })
-    }
+
+
+
+
 })

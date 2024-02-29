@@ -3,13 +3,13 @@ class PanelManager {
     #maxWidth;
     #maxHeight;
     #emptyPanel;
-    //#img;
+
 
     constructor(maxWidth, maxHeight, img) {
 
         this.#maxWidth = maxWidth;
         this.#maxHeight = maxHeight;
-        //this.#img = img
+
 
         //二次元配列を用意
         this.#panels = [];
@@ -24,15 +24,11 @@ class PanelManager {
                 let n = i + maxWidth * j + 1;
 
                 this.#panels[i][j] = new Panel(i, j, n, maxWidth, maxHeight, img);
-
-                // let left_posi = 100 * i / (maxWidth - 1) + "% ";
-                // let top_posi = 100 * j / (maxHeight - 1) + "%";
-
-                // this.#panels[i][j].getPanel().css("background-image", "url(" + img + ")")
-                //     .css("background-position", left_posi + top_posi);
             }
         }
         this.#emptyPanel = this.#panels[maxWidth - 1][maxHeight - 1];
+
+
 
     }
 
@@ -75,6 +71,7 @@ class PanelManager {
 
         this.#panels[y1][x1].updatePosition(y1, x1);
         this.#panels[y2][x2].updatePosition(y2, x2);
+
     }
 
     shufflePanels() {
@@ -84,10 +81,14 @@ class PanelManager {
     }
 
 
+
     movePanel(y, x) {
+        console.log("movePanel", y, x);
 
         let empY = this.#emptyPanel.getNowY();
         let empX = this.#emptyPanel.getNowX();
+
+        let re = 0 //returnする値(countを増やす値)
 
         //if内は隣接条件を表現
         if (Math.abs(y - empY) + Math.abs(x - empX) == 1) {
@@ -98,12 +99,21 @@ class PanelManager {
             this.#panels[y][x].updatePosition(y, x);
             this.#panels[empY][empX].updatePosition(empY, empX);
 
+            re = 1;
+
             //クリア判定
             const isGameClear = this.#panels.flat().every((x) => x.isCorrect());
             if (isGameClear) {
                 this.#emptyPanel.visible();
+                //パネルのボーダー除去
+                for (let panel of this.getViewPanels()) {
+
+                    panel.addClass("clear no-num")
+                        .removeClass("white");
+                }
             }
 
         }
+        return re;
     }
 }

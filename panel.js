@@ -2,27 +2,48 @@ class Panel {
 
     #isEmpty;
     #panelElem;
+    #maxWidth;
+    #maxHeight;
+
+    #correctY;
+    #correctX;
+    #nowY;
+    #nowX;
 
     constructor(y, x, num, maxWidth, maxHeight, img) {
 
         this.#isEmpty = (y == maxWidth - 1 && x == maxHeight - 1)
-        this.#panelElem = $(`<div>${num}</div>`);
+        this.#panelElem = $(`<div class='panel'>${num}</div>`);
+
+        this.#maxWidth = maxWidth;
+        this.#maxHeight = maxHeight;
+
+        [this.#correctY, this.#correctX] = [y, x];
+        [this.#nowY, this.#nowX] = [y, x];
+
+        this.#panelElem.data("now-y", y);
+        this.#panelElem.data("now-x", x);
 
         if (this.#isEmpty) {
             this.#panelElem.addClass("empty")
+                .prepend("<div class=on-empty></div>")
         }
 
-        this.#panelElem
-            .attr("data-correct-y", y)
-            .attr("data-correct-x", x)
-            .attr("data-now-y", y)
-            .attr("data-now-x", x)
+        let leftPosi = 100 * y / maxWidth + "%";
+        let topPosi = 100 * x / maxHeight + "%";
 
-        let left_posi = 100 * y / (maxWidth - 1) + "% ";
-        let top_posi = 100 * x / (maxHeight - 1) + "%";
+        this.#panelElem
+            .css("left", leftPosi)
+            .css("top", topPosi);
+
+        let leftPosiImg = 100 * y / (maxWidth - 1) + "% ";
+        let topPosiImg = 100 * x / (maxHeight - 1) + "%";
 
         this.#panelElem.css("background-image", "url(" + img + ")")
-            .css("background-position", left_posi + top_posi);
+            .css("background-position", leftPosiImg + topPosiImg);
+
+        this.#panelElem.css("width", `${100 / maxWidth}%`)
+            .css("height", `${100 / maxHeight}%`);
 
     }
 
@@ -35,19 +56,19 @@ class Panel {
     }
 
     getNowX() {
-        return this.#panelElem.attr("data-now-x")
+        return this.#nowX;
     }
 
     getNowY() {
-        return this.#panelElem.attr("data-now-y")
+        return this.#nowY;
     }
 
     getCorrectX() {
-        return this.#panelElem.attr("data-correct-x")
+        return this.#correctX;
     }
 
     getCorrectY() {
-        return this.#panelElem.attr("data-correct-y")
+        return this.#correctY;
     }
 
     isCorrect() {
@@ -57,9 +78,20 @@ class Panel {
     }
 
     updatePosition(y, x) {
-        this.#panelElem.attr("data-now-y", y);
-        this.#panelElem.attr("data-now-x", x);
+
+        this.#nowY = y;
+        this.#nowX = x;
+        this.#panelElem.data("now-y", y).data("now-x", x);
+
+        let leftPosi = 100 * y / this.#maxWidth + "%";
+        let topPosi = 100 * x / this.#maxHeight + "%";
+
+
+        this.#panelElem
+            .css("left", leftPosi)
+            .css("top", topPosi);
     }
+
 
     visible() {
         this.#panelElem.addClass("visible");

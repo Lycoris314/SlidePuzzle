@@ -5,6 +5,23 @@
     --field-height: 600px;
 }
 
+@media screen and (max-width: 650px) {
+
+    :root {
+        --field-width: 400px;
+        --field-height: 400px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+
+    :root {
+        --field-width: 250px;
+        --field-height: 250px;
+    }
+
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -42,43 +59,76 @@ main {
     background-color: gray;
 }
 
-.p1 {
-    font-weight: bold;
+h1 {
     padding: 20px 0;
-    font-size: 1.2rem;
+    font-size: 1.3em;
 }
 
 .field {
     box-sizing: content-box;
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex;
+    flex-wrap: wrap; */
     width: var(--field-width);
     height: var(--field-height);
     border: 2px solid black;
+    position: relative;
 }
 
-.field>div {
+.panel {
     background-size: var(--field-width) var(--field-height);
     display: grid;
     place-items: center;
     border: 1px solid rgb(152, 152, 152);
     font-size: 2rem;
     background-color: rgb(151, 184, 247);
-    color: rgb(71, 71, 71);
+    color: rgb(50, 50, 50);
+    transition: 0.5s;
+    position: absolute;
+    cursor: default;
+}
+
+@media screen and (max-width: 650px) {
+    .panel {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .panel {
+        font-size: 1rem;
+    }
+}
+
+.panel.no-num {
+    color: transparent;
+}
+
+.panel.white {
+    color: white;
+}
+
+.panel.clear {
+    border: none;
 }
 
 .empty {
-    opacity: 0;
+    /* opacity: 0; */
+    visibility: hidden;
 }
 
 .empty.visible {
-    opacity: 1
+    visibility: visible;
+    /* opacity: 1 */
 }
 
-main .p2 {
-    text-align: center;
+.on-empty {
+    visibility: visible;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 3px 3px 10px 3px rgb(226, 226, 226);
 }
-
 
 
 .arrow {
@@ -90,8 +140,8 @@ main .p2 {
     cursor: pointer;
     position: fixed;
     z-index: 10;
-    bottom: 5%;
-    right: 10%;
+    bottom: 3%;
+    right: 8%;
     transition: 0.5s;
 }
 
@@ -146,11 +196,11 @@ p:has(input) {
     overflow-Y: scroll;
 }
 
-.flame {
+.frame {
     padding: 10px;
 }
 
-.flame.on {
+.frame.on {
     background-color: rgb(213, 122, 213);
 }
 
