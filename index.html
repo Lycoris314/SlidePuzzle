@@ -1,76 +1,88 @@
 <!DOCTYPE html>
 <html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Slide Puzzle</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slide Puzzle</title>
+        <link rel="preload" href="img/default.jpg" as="image" />
+        <link rel="preload" href="img/thumbnail/default.jpg" as="image" />
 
-    <link rel="preload" href="img/default.jpg" as="image">
-    <link rel="preload" href="img/thumbnail/default.jpg" as="image">
+        <link rel="stylesheet" href="index.css" />
+        <script src="jquery.js"></script>
+        <script src="panelmanager.js"></script>
+        <script src="panel.js"></script>
+        <script src="slidepuzzle.js"></script>
+    </head>
 
-    <link rel="stylesheet" href="index.css">
-    <script src="jquery.js"></script>
-    <script src="panelmanager.js"></script>
-    <script src="panel.js"></script>
-    <script src="slidepuzzle.js"></script>
+    <body>
+        <div class="gray_cover"></div>
+        <main>
+            <h1>スライドパズル</h1>
+            <p>Count:<span class="count">0</span></p>
+            <div class="field"></div>
+            <p class="p2"><button class="shuffle">シャッフル</button></p>
+        </main>
 
-</head>
+        <div class="arrow lt"></div>
 
-<body>
-    <div class="gray_cover"></div>
-    <main>
-        <h1>スライドパズル</h1>
-        <p>Count:<span class="count">0</span></p>
-        <div class="field">
+        <div class="side">
+            <form action="" id="form">
+                <p>
+                    <label for="height">縦パネル枚数：</label>
+                    <input
+                        type="number"
+                        id="height"
+                        value="3"
+                        min="2"
+                        max="10"
+                        required
+                    />枚
+                </p>
+                <p>
+                    <label for="width">横パネル枚数：</label>
+                    <input
+                        type="number"
+                        id="width"
+                        value="3"
+                        min="2"
+                        max="10"
+                        required
+                    />枚
+                </p>
 
-        </div>
-        <p class="p2"><button class="shuffle">シャッフル</button></p>
+                <input type="hidden" class="img-path" value="img/default.jpg" />
+            </form>
 
-
-
-    </main>
-
-    <div class="arrow lt"></div>
-
-    <div class="side">
-        <form action="" id="form">
-            <p>
-                <label for="height">縦パネル枚数：</label>
-                <input type="number" id="height" value="3" min="2" max="10" required>枚
-            </p>
-            <p>
-                <label for="width">横パネル枚数：</label>
-                <input type="number" id="width" value="3" min="2" max="10" required>枚
-            </p>
-
-
-
-            <input type="hidden" class="img-path" value="img/default.jpg">
-        </form>
-
-        <section>
-            <p>画像一覧</p>
-            <div class="image_list">
-                <div class="frame" data-imgPath="img/default.jpg">
-                    <img src="img/thumbnail/default.jpg">
+            <section>
+                <p>画像一覧</p>
+                <div class="image_list">
+                    <div class="frame" data-imgPath="img/default.jpg">
+                        <img src="img/thumbnail/default.jpg" />
+                    </div>
+                    <div class="frame" data-imgPath="img/valid_1.jpg">
+                        <img src="img/thumbnail/valid_1.jpg" />
+                    </div>
+                    <div class="frame" data-imgPath="img/valid_2.jpg">
+                        <img src="img/thumbnail/valid_2.jpg" />
+                    </div>
+                    <div class="frame" data-imgPath="img/valid_3.jpg">
+                        <img src="img/thumbnail/valid_3.jpg" />
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section>
-            <p>パネルのナンバリング</p>
-            <input type="radio" name="numbering" id="radio1" checked>
-            <label for="radio1">黒</label>
-            <input type="radio" name="numbering" id="radio2">
-            <label for="radio2">白</label>
-            <input type="radio" name="numbering" id="radio3">
-            <label for="radio3">非表示</label>
-        </section>
+            <section>
+                <p>パネルのナンバリング</p>
+                <input type="radio" name="numbering" id="radio1" checked />
+                <label for="radio1">黒</label>
+                <input type="radio" name="numbering" id="radio2" />
+                <label for="radio2">白</label>
+                <input type="radio" name="numbering" id="radio3" />
+                <label for="radio3">非表示</label>
+            </section>
 
-        <p><button class="reset" form="form">リセットして反映</button></p>
-
-    </div>
-</body>
-
+            <p><button class="reset" form="form">リセットして反映</button></p>
+        </div>
+    </body>
 </html>

@@ -1,12 +1,11 @@
 @charset "utf-8";
 
 :root {
-    --field-width: 600px;
-    --field-height: 600px;
+    --field-width: min(600px, 70vh);
+    --field-height: min(600px, 70vh);
 }
 
 @media screen and (max-width: 650px) {
-
     :root {
         --field-width: 400px;
         --field-height: 400px;
@@ -14,12 +13,10 @@
 }
 
 @media screen and (max-width: 450px) {
-
     :root {
         --field-width: 250px;
         --field-height: 250px;
     }
-
 }
 
 * {
@@ -130,7 +127,6 @@ h1 {
     box-shadow: inset 3px 3px 10px 3px rgb(226, 226, 226);
 }
 
-
 .arrow {
     background-color: blueviolet;
     width: 40px;
@@ -165,7 +161,6 @@ h1 {
     translate: 12px 5px;
 }
 
-
 /* サイドメニュー領域 */
 .side {
     padding-top: 30px;
@@ -190,10 +185,11 @@ p:has(input) {
 }
 
 .image_list {
+    margin: 20px;
     display: flex;
     flex-wrap: wrap;
-    height: 240px;
-    overflow-Y: scroll;
+    height: 120px;
+    overflow-y: scroll;
 }
 
 .frame {
