@@ -1,40 +1,4 @@
 $(() => {
-    // $.ajax({
-    //     url: "imglist.php",
-    //     type: "get",
-    //     data: "exclude=default.jpg",
-    //     //dataType: "json",
-    //     cache: false,
-    // }).done((data) => {
-
-    //     console.log("データ取得に成功しました。");
-    //     //console.log(data);
-
-    //     let imageList = JSON.parse(data);
-
-    //     for (let image of imageList.values()) {
-    //         let div = $("<div class=frame>");
-
-    //         div.append($("<img>").attr("src", "img/thumbnail/" + image))
-    //             .attr("data-imgPath", "img/" + image);
-
-    //         $(".image_list").append(div);
-    //     }
-
-    //     $(".frame").on("click", function () {
-
-    //         $(".frame").removeClass("on");
-    //         $(this).addClass("on");
-
-    //         $(".img-path").val($(this).attr("data-imgPath"))
-
-    //         $("<img>").attr("src", $(this).attr("data-imgPath")); //プリロード
-    //     })
-
-    // }).fail(() => {
-    //     console.log("データ取得に失敗しました。")
-    // })
-
     //起動時
     let panemane = "";
     createPanels();
